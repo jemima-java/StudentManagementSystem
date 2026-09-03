@@ -11,7 +11,7 @@ public class Main {
 
         int choice = 0;
 
-        while (choice != 5) {
+        while (choice != 6) {
 
             System.out.println();
             System.out.println("===== Student Management System =====");
@@ -19,7 +19,8 @@ public class Main {
             System.out.println("2. Afficher les étudiants");
             System.out.println("3. Rechercher un étudiant");
             System.out.println("4. Supprimer un étudiant");
-            System.out.println("5. Quitter");
+            System.out.println("5. Modifier un étudiant");
+            System.out.println("6. Quitter");
 
             System.out.print("Choisissez une option : ");
             choice = scanner.nextInt();
@@ -106,6 +107,33 @@ public class Main {
                 }
 
             } else if (choice == 5) {
+
+                System.out.print("Nom de l'étudiant à modifier : ");
+                String editName = scanner.nextLine();
+
+                boolean edited = false;
+
+                for (Student student : students) {
+
+                    if (student.getName().equalsIgnoreCase(editName)) {
+
+                        System.out.print("Nouvel âge : ");
+                        int newAge = scanner.nextInt();
+                        scanner.nextLine();
+
+                        student.setAge(newAge);
+
+                        System.out.println("Étudiant modifié !");
+                        edited = true;
+                        break;
+                    }
+                }
+
+                if (!edited) {
+                    System.out.println("Étudiant introuvable.");
+                }
+
+            } else if (choice == 6) {
 
                 System.out.println("Au revoir !");
 
