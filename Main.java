@@ -11,14 +11,15 @@ public class Main {
 
         int choice = 0;
 
-        while (choice != 4) {
+        while (choice != 5) {
 
             System.out.println();
             System.out.println("===== Student Management System =====");
             System.out.println("1. Ajouter un étudiant");
-	    System.out.println("2. Afficher les étudiants");
-	    System.out.println("3. Rechercher un étudiant");
-	    System.out.println("4. Quitter");
+            System.out.println("2. Afficher les étudiants");
+            System.out.println("3. Rechercher un étudiant");
+            System.out.println("4. Supprimer un étudiant");
+            System.out.println("5. Quitter");
 
             System.out.print("Choisissez une option : ");
             choice = scanner.nextInt();
@@ -31,10 +32,11 @@ public class Main {
 
                 System.out.print("Age de l'étudiant : ");
                 int age = scanner.nextInt();
+                scanner.nextLine();
 
                 Student student = new Student(name, age);
-		
-		students.add(student);
+
+                students.add(student);
 
                 System.out.println();
                 System.out.println("Étudiant ajouté !");
@@ -50,44 +52,67 @@ public class Main {
 
                     for (Student student : students) {
                         System.out.println(
-                            "Nom : " + student.getName() +
-                            " | Age : " + student.getAge()
+                                "Nom : " + student.getName() +
+                                        " | Age : " + student.getAge()
                         );
                     }
                 }
 
             } else if (choice == 3) {
 
-    		System.out.print("Nom de l'étudiant à rechercher : ");
-    		String searchName = scanner.nextLine();
+                System.out.print("Nom de l'étudiant à rechercher : ");
+                String searchName = scanner.nextLine();
 
-    		boolean found = false;
+                boolean found = false;
 
-    		for (Student student : students) {
+                for (Student student : students) {
 
-        		if (student.getName().equalsIgnoreCase(searchName)) {
+                    if (student.getName().equalsIgnoreCase(searchName)) {
 
-            			System.out.println();
-            			System.out.println("Étudiant trouvé !");
-            			System.out.println("Nom : " + student.getName());
-            			System.out.println("Age : " + student.getAge());
+                        System.out.println();
+                        System.out.println("Étudiant trouvé !");
+                        System.out.println("Nom : " + student.getName());
+                        System.out.println("Age : " + student.getAge());
 
-            			found = true;
-       			}
-    		}
+                        found = true;
+                    }
+                }
 
-    		if (!found) {
-       		 System.out.println("Étudiant introuvable.");
-    		}
+                if (!found) {
+                    System.out.println("Étudiant introuvable.");
+                }
 
-	} else if (choice == 4) {
+            } else if (choice == 4) {
 
-    		System.out.println("Au revoir !");
+                System.out.print("Nom de l'étudiant à supprimer : ");
+                String deleteName = scanner.nextLine();
 
-        } else {
+                boolean deleted = false;
 
-              	System.out.println("Option invalide.");
-            	}
+                for (int i = 0; i < students.size(); i++) {
+
+                    if (students.get(i).getName().equalsIgnoreCase(deleteName)) {
+
+                        students.remove(i);
+
+                        System.out.println("Étudiant supprimé !");
+                        deleted = true;
+                        break;
+                    }
+                }
+
+                if (!deleted) {
+                    System.out.println("Étudiant introuvable.");
+                }
+
+            } else if (choice == 5) {
+
+                System.out.println("Au revoir !");
+
+            } else {
+
+                System.out.println("Option invalide.");
+            }
         }
 
         scanner.close();
