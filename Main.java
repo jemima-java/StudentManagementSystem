@@ -23,8 +23,14 @@ public class Main {
             System.out.println("6. Quitter");
 
             System.out.print("Choisissez une option : ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } else {
+                System.out.println("Veuillez entrer un nombre entre 1 et 6.");
+                scanner.nextLine();
+                continue;
+            }
 
             if (choice == 1) {
 
