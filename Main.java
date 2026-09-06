@@ -23,6 +23,7 @@ public class Main {
             System.out.println("6. Quitter");
 
             System.out.print("Choisissez une option : ");
+
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
@@ -37,16 +38,29 @@ public class Main {
                 System.out.print("Nom de l'étudiant : ");
                 String name = scanner.nextLine();
 
-                System.out.print("Age de l'étudiant : ");
+                int age;
 
-                while (!scanner.hasNextInt()) {
-                    System.out.println("Veuillez entrer un âge valide.");
-                    scanner.nextLine();
+                while (true) {
+
                     System.out.print("Age de l'étudiant : ");
-                }
 
-                int age = scanner.nextInt();
-                scanner.nextLine();
+                    if (scanner.hasNextInt()) {
+                        age = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (age >= 1 && age <= 120) {
+                            break;
+                        }
+
+                        System.out.println(
+                                "Veuillez entrer un âge entre 1 et 120."
+                        );
+
+                    } else {
+                        System.out.println("Veuillez entrer un âge valide.");
+                        scanner.nextLine();
+                    }
+                }
 
                 Student student = new Student(name, age);
 
@@ -130,16 +144,31 @@ public class Main {
 
                     if (student.getName().equalsIgnoreCase(editName)) {
 
-                        System.out.print("Nouvel âge : ");
+                        int newAge;
 
-                        while (!scanner.hasNextInt()) {
-                            System.out.println("Veuillez entrer un âge valide.");
-                            scanner.nextLine();
+                        while (true) {
+
                             System.out.print("Nouvel âge : ");
-                        }
 
-                        int newAge = scanner.nextInt();
-                        scanner.nextLine();
+                            if (scanner.hasNextInt()) {
+                                newAge = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if (newAge >= 1 && newAge <= 120) {
+                                    break;
+                                }
+
+                                System.out.println(
+                                        "Veuillez entrer un âge entre 1 et 120."
+                                );
+
+                            } else {
+                                System.out.println(
+                                        "Veuillez entrer un âge valide."
+                                );
+                                scanner.nextLine();
+                            }
+                        }
 
                         student.setAge(newAge);
 
