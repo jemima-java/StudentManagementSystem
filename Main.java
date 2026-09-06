@@ -38,6 +38,13 @@ public class Main {
                 String name = scanner.nextLine();
 
                 System.out.print("Age de l'étudiant : ");
+
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Veuillez entrer un âge valide.");
+                    scanner.nextLine();
+                    System.out.print("Age de l'étudiant : ");
+                }
+
                 int age = scanner.nextInt();
                 scanner.nextLine();
 
@@ -124,6 +131,13 @@ public class Main {
                     if (student.getName().equalsIgnoreCase(editName)) {
 
                         System.out.print("Nouvel âge : ");
+
+                        while (!scanner.hasNextInt()) {
+                            System.out.println("Veuillez entrer un âge valide.");
+                            scanner.nextLine();
+                            System.out.print("Nouvel âge : ");
+                        }
+
                         int newAge = scanner.nextInt();
                         scanner.nextLine();
 
