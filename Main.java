@@ -9,6 +9,8 @@ public class Main {
 
         ArrayList<Student> students = new ArrayList<>();
 
+        StudentManager manager = new StudentManager();
+
         int choice = 0;
 
         while (choice != 6) {
@@ -35,8 +37,19 @@ public class Main {
 
             if (choice == 1) {
 
-                System.out.print("Nom de l'étudiant : ");
-                String name = scanner.nextLine();
+                String name;
+
+                while (true) {
+
+                    System.out.print("Nom de l'étudiant : ");
+                    name = scanner.nextLine().trim();
+
+                    if (!name.isEmpty()) {
+                        break;
+                    }
+
+                    System.out.println("Le nom ne peut pas être vide.");
+                }
 
                 int age;
 
@@ -64,7 +77,7 @@ public class Main {
 
                 Student student = new Student(name, age);
 
-                students.add(student);
+                manager.addStudent(student);
 
                 System.out.println();
                 System.out.println("Étudiant ajouté !");
@@ -74,113 +87,54 @@ public class Main {
                 System.out.println();
                 System.out.println("Liste des étudiants :");
 
-                if (students.isEmpty()) {
-                    System.out.println("Aucun étudiant enregistré.");
-                } else {
-
-                    for (Student student : students) {
-                        System.out.println(
-                                "Nom : " + student.getName() +
-                                        " | Age : " + student.getAge()
-                        );
-                    }
-                }
+                manager.displayStudents();
 
             } else if (choice == 3) {
 
                 System.out.print("Nom de l'étudiant à rechercher : ");
                 String searchName = scanner.nextLine();
 
-                boolean found = false;
-
-                for (Student student : students) {
-
-                    if (student.getName().equalsIgnoreCase(searchName)) {
-
-                        System.out.println();
-                        System.out.println("Étudiant trouvé !");
-                        System.out.println("Nom : " + student.getName());
-                        System.out.println("Age : " + student.getAge());
-
-                        found = true;
-                    }
-                }
-
-                if (!found) {
-                    System.out.println("Étudiant introuvable.");
-                }
+                manager.searchStudent(searchName);
 
             } else if (choice == 4) {
 
                 System.out.print("Nom de l'étudiant à supprimer : ");
                 String deleteName = scanner.nextLine();
 
-                boolean deleted = false;
-
-                for (int i = 0; i < students.size(); i++) {
-
-                    if (students.get(i).getName().equalsIgnoreCase(deleteName)) {
-
-                        students.remove(i);
-
-                        System.out.println("Étudiant supprimé !");
-                        deleted = true;
-                        break;
-                    }
-                }
-
-                if (!deleted) {
-                    System.out.println("Étudiant introuvable.");
-                }
+                manager.deleteStudent(deleteName);
 
             } else if (choice == 5) {
 
                 System.out.print("Nom de l'étudiant à modifier : ");
                 String editName = scanner.nextLine();
 
-                boolean edited = false;
+                int newAge;
 
-                for (Student student : students) {
+                while (true) {
 
-                    if (student.getName().equalsIgnoreCase(editName)) {
+                    System.out.print("Nouvel âge : ");
 
-                        int newAge;
+                    if (scanner.hasNextInt()) {
+                        newAge = scanner.nextInt();
+                        scanner.nextLine();
 
-                        while (true) {
-
-                            System.out.print("Nouvel âge : ");
-
-                            if (scanner.hasNextInt()) {
-                                newAge = scanner.nextInt();
-                                scanner.nextLine();
-
-                                if (newAge >= 1 && newAge <= 120) {
-                                    break;
-                                }
-
-                                System.out.println(
-                                        "Veuillez entrer un âge entre 1 et 120."
-                                );
-
-                            } else {
-                                System.out.println(
-                                        "Veuillez entrer un âge valide."
-                                );
-                                scanner.nextLine();
-                            }
+                        if (newAge >= 1 && newAge <= 120) {
+                            break;
                         }
 
-                        student.setAge(newAge);
+                        System.out.println(
+                                "Veuillez entrer un âge entre 1 et 120."
+                        );
 
-                        System.out.println("Étudiant modifié !");
-                        edited = true;
-                        break;
+                    } else {
+                        System.out.println(
+                                "Veuillez entrer un âge valide."
+                        );
+                        scanner.nextLine();
                     }
                 }
 
-                if (!edited) {
-                    System.out.println("Étudiant introuvable.");
-                }
+                manager.editStudent(editName, newAge);
 
             } else if (choice == 6) {
 
